@@ -54,7 +54,6 @@ html,body{min-height:100%;background:#111;color:#f0f0f0;font-family:'Inter',sans
 .pov-table tr:last-child td{border-bottom:none}
 .pov-label{color:#888}
 .pov-val{text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.03em}
-/* buttons */
 .icon-btn{background:none;border:none;color:#333;cursor:pointer;padding:3px 5px;font-size:14px;line-height:1;transition:color .15s;border-radius:4px}
 .icon-btn:hover{color:#aaa}
 .icon-btn.danger:hover{color:#8b5a5a}
@@ -63,7 +62,6 @@ html,body{min-height:100%;background:#111;color:#f0f0f0;font-family:'Inter',sans
 .add-btn:hover{border-color:#555;color:#fff}
 .pri-btn{background:#fff;border:none;border-radius:6px;color:#111;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;cursor:pointer;padding:9px 16px;transition:background .15s}
 .pri-btn:active{background:#ccc}
-/* forms */
 .add-form{margin-top:10px;background:#161616;border:1px solid #222;border-radius:8px;padding:12px}
 .add-form-title{font-size:10px;letter-spacing:.1em;font-weight:600;color:#555;margin-bottom:10px}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px}
@@ -74,11 +72,9 @@ html,body{min-height:100%;background:#111;color:#f0f0f0;font-family:'Inter',sans
 .form-footer{display:flex;gap:7px;justify-content:flex-end;margin-top:4px}
 .sec-btn{background:none;border:1px solid #2a2a2a;border-radius:6px;color:#555;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;cursor:pointer;padding:7px 12px;transition:all .15s}
 .sec-btn:hover{border-color:#555;color:#fff}
-/* inline edit */
 .editable{cursor:pointer;border-bottom:1px dashed #333;transition:border-color .15s}
 .editable:hover{border-color:#666}
 .inline-input{background:transparent;border:none;border-bottom:1px solid #666;color:inherit;font-family:inherit;font-size:inherit;font-weight:inherit;outline:none;width:100%;padding:1px 0}
-/* modal overlay */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
 .overlay.open{opacity:1;pointer-events:auto}
 .modal{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:24px;width:100%;max-width:340px;margin:16px}
@@ -86,12 +82,9 @@ html,body{min-height:100%;background:#111;color:#f0f0f0;font-family:'Inter',sans
 .modal-field{margin-bottom:10px}
 .modal-label{font-size:11px;color:#555;letter-spacing:.06em;font-weight:600;margin-bottom:5px}
 .modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
-/* toast */
 .toast{position:fixed;bottom:36px;left:50%;transform:translateX(-50%);background:#222;border:1px solid #333;border-radius:8px;padding:12px 20px;font-size:13px;color:#ccc;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;z-index:200}
 .toast.show{opacity:1}
-/* empty */
 .empty-msg{font-size:13px;color:#333;font-style:italic;padding:8px 0}
-/* color helpers */
 .c-green{color:#6fcf97}.c-amber{color:#f2994a}.c-red{color:#eb5757}.c-white{color:#fff}.c-blue{color:#378add}.c-teal{color:#4caf70}
 @media(max-width:480px){
   .summary-row{grid-template-columns:repeat(2,1fr)}
@@ -108,13 +101,11 @@ html,body{min-height:100%;background:#111;color:#f0f0f0;font-family:'Inter',sans
     <div class="title">Evidenca<br>Prodaje</div>
   </div>
   <div class="summary-row">
-    <div class="stat"><div class="stat-label">NABAVA</div><div class="stat-val c-white" id="s-nabava">—</div><div class="stat-sub" id="s-nabava-sub">—</div></div>
+    <div class="stat"><div class="stat-label">NABAVA</div><div class="stat-val c-white" id="s-nabava">—</div><div class="stat-sub" id="s-nabava-sub">pol Žiga / pol Aljaž</div></div>
     <div class="stat"><div class="stat-label">PRODANO</div><div class="stat-val c-green" id="s-prodano">—</div><div class="stat-sub" id="s-prodano-sub">—</div></div>
     <div class="stat"><div class="stat-label">ODPRTO</div><div class="stat-val c-amber" id="s-odprto">—</div><div class="stat-sub" id="s-odprto-sub">—</div></div>
     <div class="stat"><div class="stat-label">NETO (po vseh)</div><div class="stat-val c-green" id="s-neto">—</div><div class="stat-sub">ko vse zapremo</div></div>
   </div>
-
-  <!-- VLOŽKI -->
   <div class="section-header">
     <span class="section-name">VLOŽKI</span>
     <button class="sec-btn" onclick="openModal('cost')">+ DODAJ VLOŽEK</button>
@@ -123,22 +114,14 @@ html,body{min-height:100%;background:#111;color:#f0f0f0;font-family:'Inter',sans
     <div class="col col-z"><div class="col-header">ŽIGA</div><div id="costs-ziga"></div><div class="col-total c-red" id="total-cost-ziga"></div></div>
     <div class="col col-a"><div class="col-header">ALJAŽ</div><div id="costs-aljaz"></div><div class="col-total c-red" id="total-cost-aljaz"></div></div>
   </div>
-
   <div class="divider"></div>
-
-  <!-- ZAKLJUČENE -->
   <div class="section-header"><span class="section-name">ZAKLJUČENE PRODAJE</span></div>
   <div class="split">
     <div class="col col-z"><div class="col-header">ŽIGA</div><div id="zakljucene-ziga"></div><div class="col-total c-blue" id="total-z-ziga"></div></div>
     <div class="col col-a"><div class="col-header">ALJAŽ</div><div id="zakljucene-aljaz"></div><div class="col-total c-teal" id="total-z-aljaz"></div></div>
   </div>
-
-  <!-- SHARED -->
   <div id="shared-section"></div>
-
   <div class="divider"></div>
-
-  <!-- ODPRTA -->
   <div class="section-header"><span class="section-name">ODPRTA NAROČILA</span></div>
   <div class="split">
     <div class="col col-z">
@@ -156,19 +139,13 @@ html,body{min-height:100%;background:#111;color:#f0f0f0;font-family:'Inter',sans
       <button class="add-btn" id="btn-aljaz" onclick="toggleForm('aljaz')">+ DODAJ NAROČILO</button>
     </div>
   </div>
-
   <div class="divider"></div>
-
-  <!-- ZALOGA -->
   <div class="section-header">
     <span class="section-name">ZALOGA</span>
     <button class="sec-btn" onclick="openModal('stock')">+ DODAJ ARTIKEL</button>
   </div>
   <div id="zaloga-wrap" style="border:1px solid #1e1e1e;border-radius:10px;overflow:hidden"></div>
-
   <div class="divider"></div>
-
-  <!-- POVZETEK -->
   <div class="section-header"><span class="section-name">POVZETEK</span></div>
   <div class="split">
     <div class="col col-z">
@@ -191,143 +168,96 @@ html,body{min-height:100%;background:#111;color:#f0f0f0;font-family:'Inter',sans
     </div>
   </div>
 </div>
-
-<!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modal">
     <div class="modal-title" id="modal-title">—</div>
     <div id="modal-body"></div>
     <div class="modal-footer">
       <button class="sec-btn" onclick="closeModal()">Prekliči</button>
-      <button class="pri-btn" id="modal-confirm" onclick="modalConfirm()">SHRANI</button>
+      <button class="pri-btn" onclick="modalConfirm()">SHRANI</button>
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── date ───
 const DAYS=['Nedelja','Ponedeljek','Torek','Sreda','Četrtek','Petek','Sobota'];
 const MON=['Jan','Feb','Mar','Apr','Maj','Jun','Jul','Avg','Sep','Okt','Nov','Dec'];
 const nd=new Date();
 document.getElementById('top-date').textContent=DAYS[nd.getDay()]+' · '+MON[nd.getMonth()]+' '+nd.getDate()+', '+nd.getFullYear();
 
-// ─── default state ───
-const DEFAULT = {
-  idCounter: 200,
-  costs: [
-    {id:'c1',seller:'ziga',label:'Zaloga (nabava)',amount:115},
-    {id:'c2',seller:'ziga',label:'Nasal spray (osebni)',amount:15},
-    {id:'c3',seller:'aljaz',label:'Zaloga (nabava)',amount:125},
-    {id:'c4',seller:'aljaz',label:'Claude Pro',amount:null}
-  ],
-  completed: [
-    {id:'s1',seller:'ziga',buyer:'Oskar',items:'1× Semax 5mg · 1× nasal spray',price:20,shared:false},
-    {id:'s2',seller:'ziga',buyer:'David',items:'2× Semax 5mg · 1× Selank 5mg · 1× nasal spray',price:50,shared:false},
-    {id:'s3',seller:'ziga',buyer:'Sandi',items:'7× Retatrutide 10mg · 1× Selank 5mg',price:90,shared:true,sharedWith:'aljaz'},
-    {id:'s4',seller:'aljaz',buyer:'Sandi',items:'7× Retatrutide 10mg · 1× Selank 5mg',price:90,shared:true,sharedWith:'ziga'}
-  ],
-  orders: [
-    {id:'o1',seller:'ziga',buyer:'Matija',items:'1× Semax 5mg · 1× nasal spray',price:20},
-    {id:'o2',seller:'ziga',buyer:'Nikolaj',items:'3× Semax 5mg · 3× Selank 5mg · 2× nasal spray',price:100}
-  ],
-  stock: [
-    {id:'st1',name:'Selank 5mg',total:20,sold:'2 (+3 Nikolaj)',left:'~15'},
-    {id:'st2',name:'Semax 5mg',total:20,sold:'4 (+4 Matija+Niko)',left:'~12'},
-    {id:'st3',name:'Retatrutide 10mg',total:10,sold:'7 (Sandi)',left:'3'},
-    {id:'st4',name:'Pinealon 10mg',total:10,sold:'0',left:'10'}
-  ]
-};
+let S={costs:[],completed:[],orders:[],stock:[]};
+let idCounter=Date.now();
+function uid(){return 'id'+(idCounter++);}
 
-// ─── load/save ───
-function loadState(){
-  try{
-    const s=localStorage.getItem('ep_state_v2');
-    return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT));
-  }catch(e){return JSON.parse(JSON.stringify(DEFAULT));}
+// ─── API ───
+async function api(path,opts={}){
+  const res=await fetch(path,{headers:{'Content-Type':'application/json'},...opts});
+  if(!res.ok) throw new Error(res.status);
+  return res.json();
 }
-function save(){localStorage.setItem('ep_state_v2',JSON.stringify(S));}
-let S=loadState();
+
+async function loadAll(){
+  const [costs,completed,orders,stock]=await Promise.all([
+    api('/api/costs'),api('/api/completed'),api('/api/orders'),api('/api/stock')
+  ]);
+  S={costs,completed,orders,stock};
+  render();
+}
 
 // ─── toast ───
 let tt;
-function toast(msg){
-  clearTimeout(tt);
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  tt=setTimeout(()=>t.classList.remove('show'),2500);
-}
-
+function toast(msg){clearTimeout(tt);const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');tt=setTimeout(()=>t.classList.remove('show'),2500);}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function fmt(n){return (n===null||n===undefined)?'?':n;}
 function sign(n){return n>=0?'+':'';}
 
 // ─── RENDER ───
-function render(){
-  renderCosts();
-  renderCompleted();
-  renderShared();
-  renderOrders();
-  renderStock();
-  renderSummary();
-}
+function render(){renderCosts();renderCompleted();renderShared();renderOrders();renderStock();renderSummary();}
 
-// costs
 function renderCosts(){
   ['ziga','aljaz'].forEach(sel=>{
-    const el=document.getElementById('costs-'+sel);
     const items=S.costs.filter(c=>c.seller===sel);
-    el.innerHTML=items.map(c=>`
-      <div class="cost-row" data-id="${c.id}">
-        <span class="cost-label editable" onclick="editInline(this,'cost','label','${c.id}')">${esc(c.label)}</span>
-        <span class="cost-val editable" onclick="editInline(this,'cost','amount','${c.id}')">${c.amount!==null?'−'+c.amount+' €':'—'}</span>
-        <button class="icon-btn danger" onclick="deleteCost('${c.id}')" title="Izbriši">×</button>
+    document.getElementById('costs-'+sel).innerHTML=items.map(c=>`
+      <div class="cost-row">
+        <span class="cost-label editable" onclick="editField(this,'costs','label','${c.id}',false)">${esc(c.label)}</span>
+        <span class="cost-val editable" onclick="editField(this,'costs','amount','${c.id}',true)">${c.amount!=null?'−'+c.amount+' €':'—'}</span>
+        <button class="icon-btn danger" onclick="del('costs','${c.id}')">×</button>
       </div>`).join('')||'<div class="empty-msg">—</div>';
     const total=items.reduce((a,c)=>a+(c.amount||0),0);
     document.getElementById('total-cost-'+sel).textContent=total?'SKUPAJ: −'+total+' €':'';
   });
 }
 
-// completed
 function renderCompleted(){
   ['ziga','aljaz'].forEach(sel=>{
-    const el=document.getElementById('zakljucene-'+sel);
     const items=S.completed.filter(c=>c.seller===sel);
-    el.innerHTML=items.length?items.map(c=>`
-      <div class="row" data-id="${c.id}">
+    document.getElementById('zakljucene-'+sel).innerHTML=items.length?items.map(c=>`
+      <div class="row">
         <div class="row-top">
           <div class="row-buyer">
-            <span class="editable" onclick="editInline(this,'completed','buyer','${c.id}')">${esc(c.buyer)}</span>
+            <span class="editable" onclick="editField(this,'completed','buyer','${c.id}',false)">${esc(c.buyer)}</span>
             <span class="badge b-done">PLAČANO</span>
-            ${c.shared?`<span class="badge b-shared">POL/POL</span>`:''}
+            ${c.shared?'<span class="badge b-shared">POL/POL</span>':''}
           </div>
-          <div class="row-actions">
-            <button class="icon-btn danger" onclick="deleteCompleted('${c.id}')" title="Izbriši">×</button>
-          </div>
+          <div class="row-actions"><button class="icon-btn danger" onclick="del('completed','${c.id}')">×</button></div>
         </div>
-        <div class="row-items editable" onclick="editInline(this,'completed','items','${c.id}')">${esc(c.items)||'—'}</div>
-        <div class="row-price ${sel==='ziga'?'c-blue':'c-teal'} editable" onclick="editInline(this,'completed','price','${c.id}')">${c.price} €</div>
+        <div class="row-items editable" onclick="editField(this,'completed','items','${c.id}',false)">${esc(c.items)||'—'}</div>
+        <div class="row-price ${sel==='ziga'?'c-blue':'c-teal'} editable" onclick="editField(this,'completed','price','${c.id}',true)">${c.price} €</div>
       </div>`).join(''):'<div class="empty-msg">—</div>';
     const total=items.reduce((a,c)=>a+c.price,0);
     document.getElementById('total-z-'+sel).textContent=total?'SKUPAJ: '+total+' €':'';
   });
 }
 
-// shared
 function renderShared(){
-  const sharedPairs={};
+  const pairs={};
   S.completed.filter(c=>c.shared).forEach(c=>{
     const key=[c.seller,c.sharedWith].sort().join('-');
-    if(!sharedPairs[key]) sharedPairs[key]={a:null,b:null,key};
-    if(c.seller==='ziga') sharedPairs[key].ziga=c;
-    else sharedPairs[key].aljaz=c;
+    if(!pairs[key]) pairs[key]={};
+    pairs[key][c.seller]=c;
   });
-  const el=document.getElementById('shared-section');
-  const pairs=Object.values(sharedPairs);
-  if(!pairs.length){el.innerHTML='';return;}
-  el.innerHTML=pairs.map(p=>{
-    const z=p.ziga;const a=p.aljaz;
+  document.getElementById('shared-section').innerHTML=Object.values(pairs).map(p=>{
+    const z=p.ziga,a=p.aljaz;
     const buyer=z?z.buyer:a?a.buyer:'—';
     const items=z?z.items:a?a.items:'—';
     const total=(z?z.price:0)+(a?a.price:0);
@@ -337,39 +267,36 @@ function renderShared(){
       </div>
       <div style="font-size:12px;color:#555;margin-top:6px">${esc(items)} · skupaj ${total} €</div>
       <div class="shared-inner">
-        <div class="shared-half"><div class="shared-half-label">ŽIGA (POL)</div><div class="shared-half-val c-blue">${z?z.price+'  €':'—'}</div></div>
+        <div class="shared-half"><div class="shared-half-label">ŽIGA (POL)</div><div class="shared-half-val c-blue">${z?z.price+' €':'—'}</div></div>
         <div class="shared-half"><div class="shared-half-label">ALJAŽ (POL)</div><div class="shared-half-val c-teal">${a?a.price+' €':'—'}</div></div>
       </div>
     </div>`;
   }).join('');
 }
 
-// orders
 function renderOrders(){
   ['ziga','aljaz'].forEach(sel=>{
-    const el=document.getElementById('odprta-'+sel);
     const items=S.orders.filter(o=>o.seller===sel);
-    el.innerHTML=items.length?items.map(o=>`
-      <div class="row" data-id="${o.id}">
+    document.getElementById('odprta-'+sel).innerHTML=items.length?items.map(o=>`
+      <div class="row">
         <div class="row-top">
           <div class="row-buyer">
-            <span class="editable" onclick="editInline(this,'order','buyer','${o.id}')">${esc(o.buyer)}</span>
+            <span class="editable" onclick="editField(this,'orders','buyer','${o.id}',false)">${esc(o.buyer)}</span>
             <span class="badge b-pending">ČAKA</span>
           </div>
           <div class="row-actions">
             <button class="icon-btn success" onclick="completeOrder('${o.id}')" title="Zaključi">✓</button>
-            <button class="icon-btn danger" onclick="deleteOrder('${o.id}')" title="Izbriši">×</button>
+            <button class="icon-btn danger" onclick="del('orders','${o.id}')">×</button>
           </div>
         </div>
-        <div class="row-items editable" onclick="editInline(this,'order','items','${o.id}')">${esc(o.items)||'—'}</div>
-        <div class="row-price c-amber editable" onclick="editInline(this,'order','price','${o.id}')">${o.price} €</div>
+        <div class="row-items editable" onclick="editField(this,'orders','items','${o.id}',false)">${esc(o.items)||'—'}</div>
+        <div class="row-price c-amber editable" onclick="editField(this,'orders','price','${o.id}',true)">${o.price} €</div>
       </div>`).join(''):'<div class="empty-msg">—</div>';
     const total=items.reduce((a,o)=>a+o.price,0);
     document.getElementById('total-o-'+sel).textContent=total?'ODPRTO: '+total+' €':'';
   });
 }
 
-// stock
 function renderStock(){
   const el=document.getElementById('zaloga-wrap');
   if(!S.stock.length){el.innerHTML='<div class="empty-msg" style="padding:14px">—</div>';return;}
@@ -379,20 +306,19 @@ function renderStock(){
       <th style="padding:10px 14px;text-align:right;font-size:10px;letter-spacing:.1em;color:#555;font-weight:600">SKUPAJ</th>
       <th style="padding:10px 14px;text-align:right;font-size:10px;letter-spacing:.1em;color:#555;font-weight:600">PRODANO</th>
       <th style="padding:10px 14px;text-align:right;font-size:10px;letter-spacing:.1em;color:#555;font-weight:600">OSTALO</th>
-      <th style="padding:10px 14px;text-align:right;font-size:10px;letter-spacing:.1em;color:#555;font-weight:600"></th>
+      <th style="padding:10px 14px;width:40px"></th>
     </tr></thead>
     <tbody>${S.stock.map(s=>`
-      <tr style="border-top:1px solid #1e1e1e" data-id="${s.id}">
-        <td style="padding:10px 14px;color:#e8e8e8" class="editable" onclick="editInline(this,'stock','name','${s.id}')">${esc(s.name)}</td>
-        <td style="padding:10px 14px;text-align:right;color:#555" class="editable" onclick="editInline(this,'stock','total','${s.id}')">${esc(s.total)}</td>
-        <td style="padding:10px 14px;text-align:right;color:#eb5757" class="editable" onclick="editInline(this,'stock','sold','${s.id}')">${esc(s.sold)}</td>
-        <td style="padding:10px 14px;text-align:right;color:#6fcf97;font-weight:500" class="editable" onclick="editInline(this,'stock','left','${s.id}')">${esc(s.left)}</td>
-        <td style="padding:10px 14px;text-align:right"><button class="icon-btn danger" onclick="deleteStock('${s.id}')">×</button></td>
+      <tr style="border-top:1px solid #1e1e1e">
+        <td style="padding:10px 14px;color:#e8e8e8" class="editable" onclick="editField(this,'stock','name','${s.id}',false)">${esc(s.name)}</td>
+        <td style="padding:10px 14px;text-align:right;color:#555" class="editable" onclick="editField(this,'stock','total','${s.id}',true)">${esc(s.total)}</td>
+        <td style="padding:10px 14px;text-align:right;color:#eb5757" class="editable" onclick="editField(this,'stock','sold','${s.id}',false)">${esc(s.sold)}</td>
+        <td style="padding:10px 14px;text-align:right;color:#6fcf97;font-weight:500" class="editable" onclick="editField(this,'stock','left','${s.id}',false)">${esc(s.left_amt)}</td>
+        <td style="padding:10px 14px;text-align:right"><button class="icon-btn danger" onclick="del('stock','${s.id}')">×</button></td>
       </tr>`).join('')}
     </tbody></table>`;
 }
 
-// summary
 function renderSummary(){
   const costZ=S.costs.filter(c=>c.seller==='ziga').reduce((a,c)=>a+(c.amount||0),0);
   const costA=S.costs.filter(c=>c.seller==='aljaz').reduce((a,c)=>a+(c.amount||0),0);
@@ -400,23 +326,14 @@ function renderSummary(){
   const doneA=S.completed.filter(c=>c.seller==='aljaz').reduce((a,c)=>a+c.price,0);
   const openZ=S.orders.filter(o=>o.seller==='ziga').reduce((a,o)=>a+o.price,0);
   const openA=S.orders.filter(o=>o.seller==='aljaz').reduce((a,o)=>a+o.price,0);
-  const nabava=costZ+costA;
-  const totalDone=doneZ+doneA;
-  const totalOpen=openZ+openA;
-  const neto=totalDone+totalOpen-nabava;
-
-  // stats
+  const nabava=costZ+costA,totalDone=doneZ+doneA,totalOpen=openZ+openA,neto=totalDone+totalOpen-nabava;
   document.getElementById('s-nabava').textContent=nabava+' €';
-  document.getElementById('s-nabava-sub').textContent='pol Žiga / pol Aljaž';
   document.getElementById('s-prodano').textContent=totalDone+' €';
   document.getElementById('s-odprto').textContent=totalOpen+' €';
   document.getElementById('s-odprto-sub').textContent=S.orders.length+' naročil';
   document.getElementById('s-neto').textContent=sign(neto)+neto+' €';
   document.getElementById('s-neto').className='stat-val '+(neto>=0?'c-green':'c-red');
-
-  // pov ziga
-  const zNet=doneZ-costZ;
-  const zTotal=zNet+openZ;
+  const zNet=doneZ-costZ,zTotal=zNet+openZ,aNet=doneA-costA;
   document.getElementById('pov-z-cost').textContent='−'+costZ+' €';
   document.getElementById('pov-z-done').textContent=doneZ+' €';
   document.getElementById('pov-z-net').textContent=sign(zNet)+zNet+' €';
@@ -424,9 +341,6 @@ function renderSummary(){
   document.getElementById('pov-z-open').textContent=openZ?'+'+openZ+' €':'0 €';
   document.getElementById('pov-z-total').textContent=sign(zTotal)+zTotal+' €';
   document.getElementById('pov-z-total').className='pov-val '+(zTotal>=0?'c-green':'c-red');
-
-  // pov aljaz
-  const aNet=doneA-costA;
   document.getElementById('pov-a-cost').textContent='−'+costA+' €';
   document.getElementById('pov-a-done').textContent=doneA+' €';
   document.getElementById('pov-a-net').textContent=sign(aNet)+aNet+' €';
@@ -434,45 +348,58 @@ function renderSummary(){
 }
 
 // ─── inline edit ───
-function editInline(el,type,field,id){
+function editField(el,table,field,id,isNum){
   if(el.querySelector('input')) return;
-  const orig=el.textContent.trim();
-  // strip suffixes for editing
-  let val=orig.replace(/ €$/,'').replace(/^[−+]/,'');
-  if(field==='amount'&&orig==='—') val='';
+  let val=el.textContent.trim().replace(/ €$/,'').replace(/^−/,'');
+  if(val==='—') val='';
   const inp=document.createElement('input');
-  inp.className='inline-input';
-  inp.value=val;
-  inp.type=(field==='amount'||field==='price'||field==='total')?'number':'text';
-  el.innerHTML='';
-  el.appendChild(inp);
-  inp.focus();inp.select();
-  function commit(){
-    let nv=inp.value.trim();
-    if(nv===''&&(field==='amount'||field==='price')) nv=null;
-    updateField(type,field,id,nv);
-    save();render();
-  }
+  inp.className='inline-input';inp.value=val;inp.type=isNum?'number':'text';
+  el.innerHTML='';el.appendChild(inp);inp.focus();inp.select();
   let done=false;
-  function once(){if(done)return;done=true;commit();}
-  inp.addEventListener('blur',once);
+  async function commit(){
+    if(done) return;done=true;
+    let nv=inp.value.trim();
+    const item=S[table].find(x=>x.id===id);
+    if(!item){render();return;}
+    if(isNum) item[field]=nv===''?null:parseFloat(nv)||0;
+    else item[field]=nv;
+    render();
+    // patch api
+    const body={[field]:item[field]};
+    // map 'left' to 'left_amt' for stock display but send as 'left'
+    await api('/api/'+table+'/'+id,{method:'PATCH',body:JSON.stringify(body)}).catch(()=>toast('Napaka pri shranjevanju'));
+  }
+  inp.addEventListener('blur',commit);
   inp.addEventListener('keydown',e=>{
-    if(e.key==='Enter'){e.preventDefault();once();}
+    if(e.key==='Enter'){e.preventDefault();commit();}
     if(e.key==='Escape'){done=true;render();}
   });
 }
 
-function updateField(type,field,id,val){
-  let arr;
-  if(type==='cost') arr=S.costs;
-  else if(type==='completed') arr=S.completed;
-  else if(type==='order') arr=S.orders;
-  else if(type==='stock') arr=S.stock;
+// ─── delete ───
+async function del(table,id){
+  const arr=S[table];
   const item=arr.find(x=>x.id===id);
-  if(!item) return;
-  if((field==='amount'||field==='price')&&val!==null) item[field]=parseFloat(val)||0;
-  else if(field==='total') item[field]=parseInt(val)||0;
-  else item[field]=val===''?null:val;
+  S[table]=arr.filter(x=>x.id!==id);
+  render();
+  await api('/api/'+table+'/'+id,{method:'DELETE'}).catch(()=>{S[table].push(item);render();toast('Napaka');});
+  if(item) toast('Izbrisano');
+}
+
+// ─── complete order ───
+async function completeOrder(id){
+  const o=S.orders.find(x=>x.id===id);
+  if(!o) return;
+  const nid=uid();
+  const nc={id:nid,seller:o.seller,buyer:o.buyer,items:o.items,price:o.price,shared:false,sharedWith:null};
+  S.completed.push(nc);
+  S.orders=S.orders.filter(x=>x.id!==id);
+  render();
+  await Promise.all([
+    api('/api/completed',{method:'POST',body:JSON.stringify(nc)}),
+    api('/api/orders/'+id,{method:'DELETE'})
+  ]).catch(()=>toast('Napaka pri shranjevanju'));
+  toast('Zaključeno — '+o.buyer+' ('+o.price+' €)');
 }
 
 // ─── add order form ───
@@ -495,102 +422,73 @@ function toggleForm(seller){
         <button class="pri-btn" onclick="submitOrder('${seller}')">DODAJ →</button>
       </div>
     </div>`;
-    fd.style.display='block';
-    btn.style.display='none';
+    fd.style.display='block';btn.style.display='none';
     document.getElementById('nf-'+seller+'-buyer').focus();
-  } else {
-    fd.style.display='none';fd.innerHTML='';
-    btn.style.display='block';
-  }
+  } else {fd.style.display='none';fd.innerHTML='';btn.style.display='block';}
 }
 
-function submitOrder(seller){
+async function submitOrder(seller){
   const buyer=document.getElementById('nf-'+seller+'-buyer').value.trim();
   const price=parseFloat(document.getElementById('nf-'+seller+'-price').value)||0;
   const items=document.getElementById('nf-'+seller+'-items').value.trim();
   if(!buyer){toast('Vnesi ime kupca');return;}
   if(!price){toast('Vnesi znesek');return;}
-  S.idCounter=(S.idCounter||200)+1;
-  S.orders.push({id:'o'+S.idCounter,seller,buyer,items,price});
-  save();
-  toggleForm(seller);
-  render();
+  const id=uid();
+  const o={id,seller,buyer,items,price};
+  S.orders.push(o);
+  toggleForm(seller);render();
+  await api('/api/orders',{method:'POST',body:JSON.stringify(o)}).catch(()=>toast('Napaka pri shranjevanju'));
   toast('Dodano — '+buyer);
 }
-
-// ─── complete order ───
-function completeOrder(id){
-  const o=S.orders.find(x=>x.id===id);
-  if(!o) return;
-  S.idCounter=(S.idCounter||200)+1;
-  S.completed.push({id:'c'+S.idCounter,seller:o.seller,buyer:o.buyer,items:o.items,price:o.price,shared:false});
-  S.orders=S.orders.filter(x=>x.id!==id);
-  save();render();
-  toast('Zaključeno — '+o.buyer+' ('+o.price+' €)');
-}
-
-// ─── deletes ───
-function deleteOrder(id){const o=S.orders.find(x=>x.id===id);S.orders=S.orders.filter(x=>x.id!==id);save();render();if(o)toast('Izbrisano — '+o.buyer);}
-function deleteCompleted(id){const c=S.completed.find(x=>x.id===id);S.completed=S.completed.filter(x=>x.id!==id);save();render();if(c)toast('Izbrisano — '+c.buyer);}
-function deleteCost(id){const c=S.costs.find(x=>x.id===id);S.costs=S.costs.filter(x=>x.id!==id);save();render();if(c)toast('Izbrisano — '+c.label);}
-function deleteStock(id){S.stock=S.stock.filter(x=>x.id!==id);save();render();toast('Artikel izbrisan');}
 
 // ─── modal ───
 let modalType=null;
 function openModal(type){
   modalType=type;
-  const title=document.getElementById('modal-title');
-  const body=document.getElementById('modal-body');
-  if(type==='cost'){
-    title.textContent='DODAJ VLOŽEK';
-    body.innerHTML=`
-      <div class="modal-field"><div class="modal-label">PRODAJALEC</div>
-        <select class="f-input" id="m-seller" style="appearance:none">
-          <option value="ziga">Žiga</option><option value="aljaz">Aljaž</option>
-        </select>
-      </div>
-      <div class="modal-field"><div class="modal-label">OPIS</div><input class="f-input" id="m-label" placeholder="npr. Zaloga"></div>
-      <div class="modal-field"><div class="modal-label">ZNESEK (€)</div><input class="f-input" id="m-amount" type="number" placeholder="0"></div>`;
-  } else if(type==='stock'){
-    title.textContent='DODAJ ARTIKEL';
-    body.innerHTML=`
-      <div class="modal-field"><div class="modal-label">IME ARTIKLA</div><input class="f-input" id="m-name" placeholder="npr. Semax 5mg"></div>
-      <div class="modal-field"><div class="modal-label">SKUPAJ (vialet)</div><input class="f-input" id="m-total" type="number" placeholder="10"></div>
-      <div class="modal-field"><div class="modal-label">PRODANO</div><input class="f-input" id="m-sold" placeholder="0"></div>
-      <div class="modal-field"><div class="modal-label">OSTALO</div><input class="f-input" id="m-left" placeholder="10"></div>`;
-  }
+  document.getElementById('modal-title').textContent=type==='cost'?'DODAJ VLOŽEK':'DODAJ ARTIKEL';
+  document.getElementById('modal-body').innerHTML=type==='cost'?`
+    <div class="modal-field"><div class="modal-label">PRODAJALEC</div>
+      <select class="f-input" id="m-seller"><option value="ziga">Žiga</option><option value="aljaz">Aljaž</option></select>
+    </div>
+    <div class="modal-field"><div class="modal-label">OPIS</div><input class="f-input" id="m-label" placeholder="npr. Zaloga"></div>
+    <div class="modal-field"><div class="modal-label">ZNESEK (€)</div><input class="f-input" id="m-amount" type="number" placeholder="0"></div>`:`
+    <div class="modal-field"><div class="modal-label">IME ARTIKLA</div><input class="f-input" id="m-name" placeholder="npr. Semax 5mg"></div>
+    <div class="modal-field"><div class="modal-label">SKUPAJ (vialet)</div><input class="f-input" id="m-total" type="number" placeholder="10"></div>
+    <div class="modal-field"><div class="modal-label">PRODANO</div><input class="f-input" id="m-sold" placeholder="0"></div>
+    <div class="modal-field"><div class="modal-label">OSTALO</div><input class="f-input" id="m-left" placeholder="10"></div>`;
   document.getElementById('overlay').classList.add('open');
-  setTimeout(()=>body.querySelector('.f-input')&&body.querySelector('.f-input').focus(),100);
+  setTimeout(()=>document.querySelector('#modal-body .f-input')?.focus(),100);
 }
-
 function closeModal(){document.getElementById('overlay').classList.remove('open');modalType=null;}
 function closeModalOutside(e){if(e.target===document.getElementById('overlay'))closeModal();}
 
-function modalConfirm(){
-  S.idCounter=(S.idCounter||200)+1;
+async function modalConfirm(){
+  const id=uid();
   if(modalType==='cost'){
     const seller=document.getElementById('m-seller').value;
     const label=document.getElementById('m-label').value.trim();
     const amount=parseFloat(document.getElementById('m-amount').value)||null;
     if(!label){toast('Vnesi opis');return;}
-    S.costs.push({id:'c'+S.idCounter,seller,label,amount});
+    const c={id,seller,label,amount};
+    S.costs.push(c);render();closeModal();
+    await api('/api/costs',{method:'POST',body:JSON.stringify(c)}).catch(()=>toast('Napaka'));
     toast('Vložek dodan');
-  } else if(modalType==='stock'){
+  } else {
     const name=document.getElementById('m-name').value.trim();
-    if(!name){toast('Vnesi ime artikla');return;}
-    S.stock.push({id:'st'+S.idCounter,name,total:parseInt(document.getElementById('m-total').value)||0,sold:document.getElementById('m-sold').value||'0',left:document.getElementById('m-left').value||'0'});
+    if(!name){toast('Vnesi ime');return;}
+    const s={id,name,total:parseInt(document.getElementById('m-total').value)||0,sold:document.getElementById('m-sold').value||'0',left_amt:document.getElementById('m-left').value||'0'};
+    S.stock.push(s);render();closeModal();
+    await api('/api/stock',{method:'POST',body:JSON.stringify({...s,left:s.left_amt})}).catch(()=>toast('Napaka'));
     toast('Artikel dodan');
   }
-  save();render();closeModal();
 }
 
-// enter in modal
 document.addEventListener('keydown',e=>{
   if(e.key==='Enter'&&document.getElementById('overlay').classList.contains('open'))modalConfirm();
   if(e.key==='Escape'&&document.getElementById('overlay').classList.contains('open'))closeModal();
 });
 
-render();
+loadAll();
 </script>
 </body>
 </html>
