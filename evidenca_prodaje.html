@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Evidenca prodaje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:#111;color:#f0f0f0;font-family:'Inter',sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:48px 24px 80px}
+.top{margin-bottom:40px}
+.date{font-size:13px;color:#888;letter-spacing:.04em;margin-bottom:8px}
+.title{font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:.05em;line-height:1;color:#fff}
+.summary-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:48px}
+.stat{background:#1a1a1a;border-radius:8px;padding:14px 12px}
+.stat-label{font-size:11px;color:#555;letter-spacing:.08em;font-weight:500;margin-bottom:6px}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.03em;line-height:1}
+.stat-sub{font-size:11px;color:#555;margin-top:4px}
+.green{color:#6fcf97}.amber{color:#f2994a}.red{color:#eb5757}.white{color:#fff}.blue{color:#378add}
+.divider{height:1px;background:#1e1e1e;margin:40px 0}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.section-name{font-size:11px;letter-spacing:.12em;color:#fff;font-weight:600}
+.section-sub{font-size:11px;color:#555}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
+.col{border:1px solid #1e1e1e;border-radius:10px;padding:1rem;min-height:80px}
+.col-z{border-top:2px solid #378add}
+.col-a{border-top:2px solid #4caf70}
+.col-header{font-size:11px;font-weight:600;letter-spacing:.1em;margin-bottom:14px}
+.col-z .col-header{color:#378add}
+.col-a .col-header{color:#4caf70}
+.row{padding:10px 0;border-bottom:1px solid #1a1a1a;font-size:13px;position:relative}
+.row:last-of-type{border-bottom:none}
+.row-buyer{font-weight:500;color:#e8e8e8;margin-bottom:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.row-items{font-size:12px;color:#555;margin-bottom:4px;line-height:1.5}
+.row-price{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.03em}
+.price-z{color:#378add}.price-a{color:#4caf70}.price-amber{color:#f2994a}
+.col-total{font-size:11px;font-weight:600;letter-spacing:.06em;padding-top:10px;margin-top:2px}
+.badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.06em;padding:1px 7px;border-radius:99px}
+.b-done{background:#1a3a26;color:#6fcf97}
+.b-pending{background:#3a2a10;color:#f2994a}
+.b-shared{background:#1e1e3a;color:#7c7cef}
+.shared-card{border:1px solid #1e1e1e;border-radius:10px;padding:1rem;margin-bottom:8px}
+.shared-inner{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.shared-half{background:#181818;border-radius:6px;padding:10px 12px}
+.shared-half-label{font-size:11px;color:#555;margin-bottom:4px;letter-spacing:.04em}
+.shared-half-val{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em}
+.cost-row{padding:9px 0;border-bottom:1px solid #1a1a1a;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.cost-row:last-child{border-bottom:none}
+.cost-label{color:#888}
+.cost-val{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#eb5757;letter-spacing:.03em}
+.pov-table{width:100%;font-size:13px;border-collapse:collapse}
+.pov-table td{padding:8px 0;border-bottom:1px solid #1a1a1a;vertical-align:middle}
+.pov-table tr:last-child td{border-bottom:none}
+.pov-label{color:#888}
+.pov-val{text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.03em}
+.empty-col{display:flex;align-items:center;justify-content:center;color:#333;font-size:13px;font-style:italic}
+
+/* add form */
+.add-form{margin-top:12px;background:#161616;border:1px solid #1e1e1e;border-radius:8px;padding:14px}
+.add-form-title{font-size:10px;letter-spacing:.1em;font-weight:600;color:#555;margin-bottom:12px}
+.add-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.add-fields.single{grid-template-columns:1fr}
+.add-input{background:#111;border:1px solid #2a2a2a;border-radius:6px;padding:8px 10px;color:#f0f0f0;font-family:'Inter',sans-serif;font-size:13px;width:100%;outline:none;transition:border-color .15s}
+.add-input::placeholder{color:#444}
+.add-input:focus{border-color:#444}
+.add-row-bottom{display:flex;gap:8px;align-items:center}
+.add-select{background:#111;border:1px solid #2a2a2a;border-radius:6px;padding:8px 10px;color:#888;font-family:'Inter',sans-serif;font-size:13px;outline:none;flex:1;transition:border-color .15s;appearance:none}
+.add-select:focus{border-color:#444}
+.add-btn{background:#fff;border:none;border-radius:6px;color:#111;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;cursor:pointer;padding:9px 16px;white-space:nowrap;transition:background .15s}
+.add-btn:active{background:#ccc}
+.add-btn.secondary{background:none;border:1px solid #2a2a2a;color:#555;padding:8px 12px}
+.add-btn.secondary:hover{border-color:#555;color:#fff}
+
+/* complete btn on order rows */
+.complete-btn{background:none;border:1px solid #1e3a26;border-radius:5px;color:#3a7a50;font-size:10px;font-weight:600;letter-spacing:.06em;cursor:pointer;padding:3px 8px;margin-left:auto;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.complete-btn:hover{background:#1a3a26;color:#6fcf97;border-color:#3a7a50}
+.delete-btn{background:none;border:none;color:#333;cursor:pointer;padding:2px 4px;font-size:16px;line-height:1;transition:color .15s;margin-left:2px}
+.delete-btn:hover{color:#8b5a5a}
+
+/* toast */
+.toast{position:fixed;bottom:36px;left:50%;transform:translateX(-50%);background:#222;border:1px solid #333;border-radius:8px;padding:12px 20px;font-size:13px;color:#ccc;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;z-index:99}
+.toast.show{opacity:1}
+
+@media(max-width:480px){
+  .summary-row{grid-template-columns:repeat(2,1fr)}
+  .title{font-size:48px}
+  .split{grid-template-columns:1fr}
+  .add-fields{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="date" id="top-date"></div>
+    <div class="title">Evidenca<br>Prodaje</div>
+  </div>
+
+  <!-- summary -->
+  <div class="summary-row">
+    <div class="stat">
+      <div class="stat-label">NABAVA</div>
+      <div class="stat-val white">250 €</div>
+      <div class="stat-sub">pol Žiga / pol Aljaž</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">PRODANO</div>
+      <div class="stat-val green" id="stat-prodano">—</div>
+      <div class="stat-sub" id="stat-prodano-sub">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">ODPRTO</div>
+      <div class="stat-val amber" id="stat-odprto">—</div>
+      <div class="stat-sub" id="stat-odprto-sub">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">NETO (po vseh)</div>
+      <div class="stat-val green" id="stat-neto">—</div>
+      <div class="stat-sub">ko vse zapremo</div>
+    </div>
+  </div>
+
+  <!-- vložki -->
+  <div class="section-header"><span class="section-name">VLOŽKI</span></div>
+  <div class="split">
+    <div class="col col-z">
+      <div class="col-header">ŽIGA</div>
+      <div class="cost-row"><span class="cost-label">Zaloga (nabava)</span><span class="cost-val">−115 €</span></div>
+      <div class="cost-row"><span class="cost-label">Nasal spray (osebni)</span><span class="cost-val">−15 €</span></div>
+      <div style="padding-top:10px;font-size:11px;font-weight:600;color:#eb5757;letter-spacing:.06em">SKUPAJ: −130 €</div>
+    </div>
+    <div class="col col-a">
+      <div class="col-header">ALJAŽ</div>
+      <div class="cost-row"><span class="cost-label">Zaloga (nabava)</span><span class="cost-val">−125 €</span></div>
+      <div class="cost-row"><span class="cost-label">Claude Pro</span><span class="cost-val" style="color:#555">−? €</span></div>
+      <div style="padding-top:10px;font-size:11px;font-weight:600;color:#eb5757;letter-spacing:.06em">SKUPAJ: −125 € + Pro</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- zaključene prodaje -->
+  <div class="section-header"><span class="section-name">ZAKLJUČENE PRODAJE</span></div>
+  <div class="split">
+    <div class="col col-z">
+      <div class="col-header">ŽIGA</div>
+      <div id="zakljucene-ziga">
+        <div class="row" data-id="z1" data-seller="ziga" data-price="20">
+          <div class="row-buyer">Oskar <span class="badge b-done">PLAČANO</span></div>
+          <div class="row-items">1× Semax 5mg · 1× nasal spray</div>
+          <div class="row-price price-z">20 €</div>
+        </div>
+        <div class="row" data-id="z2" data-seller="ziga" data-price="50">
+          <div class="row-buyer">David <span class="badge b-done">PLAČANO</span></div>
+          <div class="row-items">2× Semax 5mg · 1× Selank 5mg · 1× nasal spray</div>
+          <div class="row-price price-z">50 €</div>
+        </div>
+        <div class="row" data-id="z3" data-seller="ziga" data-price="90">
+          <div class="row-buyer">Sandi <span class="badge b-done">PLAČANO</span> <span class="badge b-shared">POL/POL</span></div>
+          <div class="row-items">7× Retatrutide 10mg · 1× Selank 5mg</div>
+          <div class="row-price price-z">90 €</div>
+        </div>
+      </div>
+      <div class="col-total blue" id="total-ziga-z">SKUPAJ: 160 €</div>
+    </div>
+    <div class="col col-a">
+      <div class="col-header">ALJAŽ</div>
+      <div id="zakljucene-aljaz">
+        <div class="row" data-id="a1" data-seller="aljaz" data-price="90">
+          <div class="row-buyer">Sandi <span class="badge b-done">PLAČANO</span> <span class="badge b-shared">POL/POL</span></div>
+          <div class="row-items">7× Retatrutide 10mg · 1× Selank 5mg</div>
+          <div class="row-price price-a">90 €</div>
+        </div>
+      </div>
+      <div class="col-total" style="color:#4caf70" id="total-aljaz-z">SKUPAJ: 90 €</div>
+    </div>
+  </div>
+
+  <!-- skupna sandi -->
+  <div class="shared-card">
+    <div class="section-header" style="margin-bottom:0">
+      <span class="section-name">SKUPNA PRODAJA — SANDI <span class="badge b-done" style="vertical-align:middle">PLAČANO</span></span>
+    </div>
+    <div style="font-size:12px;color:#555;margin-top:6px">7× Retatrutide 10mg · 1× Selank 5mg · skupaj 180 €</div>
+    <div class="shared-inner">
+      <div class="shared-half"><div class="shared-half-label">ŽIGA (POL)</div><div class="shared-half-val" style="color:#378add">90 €</div></div>
+      <div class="shared-half"><div class="shared-half-label">ALJAŽ (POL)</div><div class="shared-half-val" style="color:#4caf70">90 €</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- odprta naročila -->
+  <div class="section-header"><span class="section-name">ODPRTA NAROČILA</span></div>
+  <div class="split">
+    <div class="col col-z">
+      <div class="col-header">ŽIGA</div>
+      <div id="odprta-ziga">
+        <div class="row" data-id="o1" data-seller="ziga" data-price="20">
+          <div class="row-buyer" style="justify-content:space-between">
+            <span style="display:flex;align-items:center;gap:6px">Matija <span class="badge b-pending">ČAKA</span></span>
+            <div style="display:flex;gap:4px">
+              <button class="complete-btn" onclick="completeOrder(this)">✓ ZAKLJUČI</button>
+              <button class="delete-btn" onclick="deleteOrder(this)" title="Izbriši">×</button>
+            </div>
+          </div>
+          <div class="row-items">1× Semax 5mg · 1× nasal spray</div>
+          <div class="row-price price-amber">20 €</div>
+        </div>
+        <div class="row" data-id="o2" data-seller="ziga" data-price="100">
+          <div class="row-buyer" style="justify-content:space-between">
+            <span style="display:flex;align-items:center;gap:6px">Nikolaj <span class="badge b-pending">ČAKA</span></span>
+            <div style="display:flex;gap:4px">
+              <button class="complete-btn" onclick="completeOrder(this)">✓ ZAKLJUČI</button>
+              <button class="delete-btn" onclick="deleteOrder(this)" title="Izbriši">×</button>
+            </div>
+          </div>
+          <div class="row-items">3× Semax 5mg · 3× Selank 5mg · 2× nasal spray</div>
+          <div class="row-price price-amber">100 €</div>
+        </div>
+      </div>
+      <div class="col-total amber" id="total-ziga-o">ODPRTO: 120 €</div>
+      <!-- add form ziga -->
+      <div class="add-form" id="form-ziga" style="display:none">
+        <div class="add-form-title">NOVO NAROČILO — ŽIGA</div>
+        <div class="add-fields">
+          <input class="add-input" id="f-ziga-buyer" placeholder="Kupec">
+          <input class="add-input" id="f-ziga-price" placeholder="Znesek (€)" type="number" min="0">
+        </div>
+        <div class="add-fields single">
+          <input class="add-input" id="f-ziga-items" placeholder="Artikli (npr. 2× Semax 5mg)">
+        </div>
+        <div class="add-row-bottom">
+          <button class="add-btn secondary" onclick="toggleForm('ziga')">Prekliči</button>
+          <button class="add-btn" onclick="addOrder('ziga')">DODAJ →</button>
+        </div>
+      </div>
+      <button class="add-btn secondary" id="btn-add-ziga" onclick="toggleForm('ziga')" style="margin-top:12px;width:100%">+ DODAJ NAROČILO</button>
+    </div>
+    <div class="col col-a">
+      <div class="col-header">ALJAŽ</div>
+      <div id="odprta-aljaz">
+        <div style="font-size:13px;color:#333;font-style:italic;padding:8px 0">—</div>
+      </div>
+      <div class="col-total" style="color:#4caf70" id="total-aljaz-o"></div>
+      <!-- add form aljaz -->
+      <div class="add-form" id="form-aljaz" style="display:none">
+        <div class="add-form-title">NOVO NAROČILO — ALJAŽ</div>
+        <div class="add-fields">
+          <input class="add-input" id="f-aljaz-buyer" placeholder="Kupec">
+          <input class="add-input" id="f-aljaz-price" placeholder="Znesek (€)" type="number" min="0">
+        </div>
+        <div class="add-fields single">
+          <input class="add-input" id="f-aljaz-items" placeholder="Artikli (npr. 2× Semax 5mg)">
+        </div>
+        <div class="add-row-bottom">
+          <button class="add-btn secondary" onclick="toggleForm('aljaz')">Prekliči</button>
+          <button class="add-btn" onclick="addOrder('aljaz')">DODAJ →</button>
+        </div>
+      </div>
+      <button class="add-btn secondary" id="btn-add-aljaz" onclick="toggleForm('aljaz')" style="margin-top:12px;width:100%">+ DODAJ NAROČILO</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- zaloga -->
+  <div class="section-header">
+    <span class="section-name">ZALOGA</span>
+    <span class="section-sub">nabava 250 €</span>
+  </div>
+  <div style="border:1px solid #1e1e1e;border-radius:10px;overflow:hidden">
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead>
+        <tr style="background:#181818">
+          <th style="padding:10px 14px;text-align:left;font-size:10px;letter-spacing:.1em;color:#555;font-weight:600">ARTIKEL</th>
+          <th style="padding:10px 14px;text-align:right;font-size:10px;letter-spacing:.1em;color:#555;font-weight:600">SKUPAJ</th>
+          <th style="padding:10px 14px;text-align:right;font-size:10px;letter-spacing:.1em;color:#555;font-weight:600">PRODANO</th>
+          <th style="padding:10px 14px;text-align:right;font-size:10px;letter-spacing:.1em;color:#555;font-weight:600">OSTALO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid #1e1e1e"><td style="padding:10px 14px;color:#e8e8e8">Selank 5mg</td><td style="padding:10px 14px;text-align:right;color:#555">20</td><td style="padding:10px 14px;text-align:right;color:#eb5757">2 (+3 Nikolaj)</td><td style="padding:10px 14px;text-align:right;color:#6fcf97;font-weight:500">~15</td></tr>
+        <tr style="border-top:1px solid #1e1e1e"><td style="padding:10px 14px;color:#e8e8e8">Semax 5mg</td><td style="padding:10px 14px;text-align:right;color:#555">20</td><td style="padding:10px 14px;text-align:right;color:#eb5757">4 (+4 Matija+Niko)</td><td style="padding:10px 14px;text-align:right;color:#6fcf97;font-weight:500">~12</td></tr>
+        <tr style="border-top:1px solid #1e1e1e"><td style="padding:10px 14px;color:#e8e8e8">Retatrutide 10mg</td><td style="padding:10px 14px;text-align:right;color:#555">10</td><td style="padding:10px 14px;text-align:right;color:#eb5757">7 (Sandi)</td><td style="padding:10px 14px;text-align:right;color:#6fcf97;font-weight:500">3</td></tr>
+        <tr style="border-top:1px solid #1e1e1e"><td style="padding:10px 14px;color:#e8e8e8">Pinealon 10mg</td><td style="padding:10px 14px;text-align:right;color:#555">10</td><td style="padding:10px 14px;text-align:right;color:#555">0</td><td style="padding:10px 14px;text-align:right;color:#6fcf97;font-weight:500">10</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- povzetek -->
+  <div class="section-header"><span class="section-name">POVZETEK</span></div>
+  <div class="split">
+    <div class="col col-z">
+      <div class="col-header">ŽIGA</div>
+      <table class="pov-table">
+        <tr><td class="pov-label">Nabava</td><td class="pov-val red">−130 €</td></tr>
+        <tr><td class="pov-label">Prodano (zaključeno)</td><td class="pov-val blue" id="pov-ziga-z">160 €</td></tr>
+        <tr><td class="pov-label">Neto trenutno</td><td class="pov-val green" id="pov-ziga-net">+30 €</td></tr>
+        <tr><td class="pov-label">Odprto</td><td class="pov-val amber" id="pov-ziga-o">+120 €</td></tr>
+        <tr><td class="pov-label" style="color:#e8e8e8;font-weight:500">Neto po vseh</td><td class="pov-val green" id="pov-ziga-total">+150 €</td></tr>
+      </table>
+    </div>
+    <div class="col col-a">
+      <div class="col-header">ALJAŽ</div>
+      <table class="pov-table">
+        <tr><td class="pov-label">Nabava</td><td class="pov-val red">−125 €</td></tr>
+        <tr><td class="pov-label">Prodano (zaključeno)</td><td class="pov-val" style="color:#4caf70" id="pov-aljaz-z">90 €</td></tr>
+        <tr><td class="pov-label" style="color:#e8e8e8;font-weight:500">Neto trenutno</td><td class="pov-val red" id="pov-aljaz-net">−35 €</td></tr>
+        <tr><td class="pov-label" style="font-size:11px;color:#444">Claude Pro ni všteto</td><td class="pov-val" style="color:#444;font-size:14px">? €</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── date ───
+const DAYS=['Nedelja','Ponedeljek','Torek','Sreda','Četrtek','Petek','Sobota'];
+const MONTHS=['Jan','Feb','Mar','Apr','Maj','Jun','Jul','Avg','Sep','Okt','Nov','Dec'];
+const d=new Date();
+document.getElementById('top-date').textContent=DAYS[d.getDay()]+' · '+MONTHS[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
+
+// ─── state ───
+// Load from localStorage
+function loadState(){
+  try{ return JSON.parse(localStorage.getItem('evidenca_state'))||{orders:{},completed:{}}; }
+  catch(e){ return {orders:{},completed:{}}; }
+}
+function saveState(s){ localStorage.setItem('evidenca_state',JSON.stringify(s)); }
+
+let state = loadState();
+let idCounter = state.idCounter||100;
+
+// ─── toast ───
+let toastTimer;
+function toast(msg){
+  clearTimeout(toastTimer);
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ─── form toggle ───
+function toggleForm(seller){
+  const form=document.getElementById('form-'+seller);
+  const btn=document.getElementById('btn-add-'+seller);
+  const open=form.style.display==='none';
+  form.style.display=open?'block':'none';
+  btn.style.display=open?'none':'block';
+  if(open) document.getElementById('f-'+seller+'-buyer').focus();
+}
+
+// ─── add order ───
+function addOrder(seller){
+  const buyer=document.getElementById('f-'+seller+'-buyer').value.trim();
+  const price=parseFloat(document.getElementById('f-'+seller+'-price').value)||0;
+  const items=document.getElementById('f-'+seller+'-items').value.trim();
+  if(!buyer){ toast('Vnesi ime kupca'); return; }
+  if(!price){ toast('Vnesi znesek'); return; }
+
+  idCounter++;
+  const id='dyn-'+idCounter;
+  state.idCounter=idCounter;
+  if(!state.orders) state.orders={};
+  state.orders[id]={id,seller,buyer,price,items};
+  saveState(state);
+
+  renderDynamicOrder(id,seller,buyer,price,items);
+  recalc();
+
+  // reset form
+  document.getElementById('f-'+seller+'-buyer').value='';
+  document.getElementById('f-'+seller+'-price').value='';
+  document.getElementById('f-'+seller+'-items').value='';
+  toggleForm(seller);
+  toast('Naročilo dodano — '+buyer);
+}
+
+function renderDynamicOrder(id,seller,buyer,price,items){
+  const container=document.getElementById('odprta-'+seller);
+  // remove empty placeholder
+  const ph=container.querySelector('div[style*="italic"]');
+  if(ph) ph.remove();
+
+  const priceClass=seller==='ziga'?'price-amber':'price-amber';
+  const div=document.createElement('div');
+  div.className='row';
+  div.dataset.id=id;
+  div.dataset.seller=seller;
+  div.dataset.price=price;
+  div.innerHTML=`
+    <div class="row-buyer" style="justify-content:space-between">
+      <span style="display:flex;align-items:center;gap:6px">${esc(buyer)} <span class="badge b-pending">ČAKA</span></span>
+      <div style="display:flex;gap:4px">
+        <button class="complete-btn" onclick="completeOrder(this)">✓ ZAKLJUČI</button>
+        <button class="delete-btn" onclick="deleteOrder(this)" title="Izbriši">×</button>
+      </div>
+    </div>
+    <div class="row-items">${esc(items)||'—'}</div>
+    <div class="row-price ${priceClass}">${price} €</div>`;
+  container.appendChild(div);
+}
+
+// ─── complete order ───
+function completeOrder(btn){
+  const row=btn.closest('.row');
+  const seller=row.dataset.seller;
+  const price=parseFloat(row.dataset.price)||0;
+  const buyer=row.querySelector('.row-buyer span span, .row-buyer span').textContent.trim().replace(/ČAKA/,'').trim()||'Neznan';
+  const items=row.querySelector('.row-items').textContent.trim();
+  const id=row.dataset.id;
+
+  // move to completed
+  const target=document.getElementById('zakljucene-'+seller);
+  const priceClass=seller==='ziga'?'price-z':'price-a';
+  const div=document.createElement('div');
+  div.className='row';
+  div.dataset.id=id+'-c';
+  div.dataset.seller=seller;
+  div.dataset.price=price;
+  div.innerHTML=`
+    <div class="row-buyer">${esc(buyer)} <span class="badge b-done">PLAČANO</span></div>
+    <div class="row-items">${esc(items)}</div>
+    <div class="row-price ${priceClass}">${price} €</div>`;
+  target.appendChild(div);
+
+  // remove from pending
+  row.remove();
+
+  // update state
+  if(state.orders&&state.orders[id]){
+    if(!state.completed) state.completed={};
+    state.completed[id]=state.orders[id];
+    delete state.orders[id];
+    saveState(state);
+  }
+
+  recalc();
+  toast('Zaključeno — '+buyer+' ('+price+' €)');
+
+  // check if odprta container empty
+  checkEmpty('odprta-'+seller);
+}
+
+// ─── delete order ───
+function deleteOrder(btn){
+  const row=btn.closest('.row');
+  const id=row.dataset.id;
+  const buyer=row.querySelector('.row-buyer span span, .row-buyer span')?.textContent.trim().replace(/ČAKA/,'').trim()||'Naročilo';
+  row.remove();
+  if(state.orders&&state.orders[id]){ delete state.orders[id]; saveState(state); }
+  recalc();
+  toast('Izbrisano — '+buyer);
+  checkEmpty('odprta-'+row.dataset.seller);
+}
+
+function checkEmpty(containerId){
+  const c=document.getElementById(containerId);
+  if(!c) return;
+  const rows=c.querySelectorAll('.row');
+  if(!rows.length){
+    c.innerHTML='<div style="font-size:13px;color:#333;font-style:italic;padding:8px 0">—</div>';
+  }
+}
+
+// ─── recalc ───
+function recalc(){
+  // zaključene
+  let zigaZ=0, aljazZ=0;
+  document.querySelectorAll('#zakljucene-ziga .row').forEach(r=>zigaZ+=parseFloat(r.dataset.price)||0);
+  document.querySelectorAll('#zakljucene-aljaz .row').forEach(r=>aljazZ+=parseFloat(r.dataset.price)||0);
+
+  // odprte
+  let zigaO=0, aljazO=0;
+  document.querySelectorAll('#odprta-ziga .row').forEach(r=>zigaO+=parseFloat(r.dataset.price)||0);
+  document.querySelectorAll('#odprta-aljaz .row').forEach(r=>aljazO+=parseFloat(r.dataset.price)||0);
+
+  const totalZ=zigaZ+aljazZ;
+  const totalO=zigaO+aljazO;
+  const nabava=250;
+  const neto=totalZ+totalO-nabava;
+
+  // update totals
+  document.getElementById('total-ziga-z').textContent='SKUPAJ: '+zigaZ+' €';
+  document.getElementById('total-aljaz-z').textContent='SKUPAJ: '+aljazZ+' €';
+  document.getElementById('total-ziga-o').textContent=zigaO?'ODPRTO: '+zigaO+' €':'';
+  document.getElementById('total-aljaz-o').textContent=aljazO?'ODPRTO: '+aljazO+' €':'';
+
+  // stats
+  document.getElementById('stat-prodano').textContent=totalZ+' €';
+  document.getElementById('stat-odprto').textContent=totalO+' €';
+  document.getElementById('stat-neto').textContent=(neto>=0?'+':'')+neto+' €';
+  document.getElementById('stat-neto').className='stat-val '+(neto>=0?'green':'red');
+
+  // povzetek žiga
+  const zigaNet=zigaZ-130;
+  document.getElementById('pov-ziga-z').textContent=zigaZ+' €';
+  document.getElementById('pov-ziga-net').textContent=(zigaNet>=0?'+':'')+zigaNet+' €';
+  document.getElementById('pov-ziga-net').className='pov-val '+(zigaNet>=0?'green':'red');
+  document.getElementById('pov-ziga-o').textContent=zigaO?'+'+zigaO+' €':'0 €';
+  const zigaTotal=zigaNet+zigaO;
+  document.getElementById('pov-ziga-total').textContent=(zigaTotal>=0?'+':'')+zigaTotal+' €';
+  document.getElementById('pov-ziga-total').className='pov-val '+(zigaTotal>=0?'green':'red');
+
+  // povzetek aljaž
+  const aljazNet=aljazZ-125;
+  document.getElementById('pov-aljaz-z').textContent=aljazZ+' €';
+  document.getElementById('pov-aljaz-net').textContent=(aljazNet>=0?'+':'')+aljazNet+' €';
+  document.getElementById('pov-aljaz-net').className='pov-val '+(aljazNet>=0?'green':'red');
+}
+
+function esc(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── restore dynamic orders from localStorage ───
+function restoreState(){
+  if(state.orders){
+    Object.values(state.orders).forEach(o=>{
+      renderDynamicOrder(o.id,o.seller,o.buyer,o.price,o.items);
+    });
+  }
+  if(state.completed){
+    Object.values(state.completed).forEach(o=>{
+      const target=document.getElementById('zakljucene-'+o.seller);
+      const priceClass=o.seller==='ziga'?'price-z':'price-a';
+      const div=document.createElement('div');
+      div.className='row';
+      div.dataset.id=o.id+'-c';
+      div.dataset.seller=o.seller;
+      div.dataset.price=o.price;
+      div.innerHTML=`
+        <div class="row-buyer">${esc(o.buyer)} <span class="badge b-done">PLAČANO</span></div>
+        <div class="row-items">${esc(o.items)}</div>
+        <div class="row-price ${priceClass}">${o.price} €</div>`;
+      target.appendChild(div);
+    });
+  }
+  recalc();
+}
+
+restoreState();
+recalc();
+</script>
+</body>
+</html>
